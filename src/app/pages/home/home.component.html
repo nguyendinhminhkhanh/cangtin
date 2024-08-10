@@ -1,0 +1,194 @@
+<h1 style="font-weight: bold; padding: 10px">Trang chủ</h1>
+<div style="display: flex">
+  <h4 style="padding: 0px 10px">Danh mục hiển thị sản phẩm</h4>
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-success"
+    (click)="openModalAdd(modalAdd)"
+  >
+    Thêm sản phẩm
+  </button>
+  <!-- Modal Add -->
+  <ng-template #modalAdd>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Thêm sản phẩm</h1>
+        <button
+          type="button"
+          class="btn-close"
+          (click)="closeModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="rfContact">
+          <div
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <input
+              type="text"
+              placeholder="Tên sản phẩm"
+              style="width: 90%; padding: 10px; border-radius: 5px"
+              formControlName="name"
+            />
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              padding-top: 10px;
+            "
+          >
+            <input
+              type="text"
+              placeholder="Ảnh"
+              style="width: 90%; padding: 10px; border-radius: 5px"
+              formControlName="thumbnail"
+            />
+          </div>
+          <p
+            *ngIf="checkInfoCategory"
+            style="
+              color: red;
+              font-weight: bold;
+              display: flex;
+              padding-top: 8px;
+              justify-content: center;
+            "
+          >
+            <i class="bi bi-x-circle" style="font-weight: bold"></i>Chưa nhập đủ
+            thông tin sản phẩm
+          </p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="onAdd()">
+          Thêm
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeModal()"
+        >
+          Thoát
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+<div style="padding: 10px; width: 100%">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Tên(name)</th>
+        <th scope="col">Ảnh(thumbnail)</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; index as inx">
+        <td>{{ inx + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.thumbnail }}</td>
+        <td>
+          <!-- button sua -->
+          <button
+            style="margin-right: 5px"
+            type="button"
+            class="btn btn-outline-warning"
+            (click)="openModalEdit(modalEdit)"
+          >
+            Sửa
+          </button>
+          <!-- modal sua -->
+          <ng-template #modalEdit>
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Sửa sản phẩm
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                (click)="closeModal()"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="rfContactUpdate">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <input
+                    type="text"
+                    placeholder="Tên sản phẩm"
+                    style="width: 90%; padding: 10px; border-radius: 5px"
+                    formControlName="name"
+                  />
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 10px;
+                  "
+                >
+                  <input
+                    type="text"
+                    placeholder="Ảnh"
+                    style="width: 90%; padding: 10px; border-radius: 5px"
+                    formControlName="thumbnail"
+                  />
+                </div>
+                <p
+                  *ngIf="checkInfoUpdate"
+                  style="
+                    color: red;
+                    font-weight: bold;
+                    display: flex;
+                    padding-top: 8px;
+                    justify-content: center;
+                  "
+                >
+                  <i class="bi bi-x-circle" style="font-weight: bold"></i>Chưa
+                  nhập đủ thông tin sản phẩm
+                </p>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-warning"
+                (click)="onUpdate(item.id)"
+              >
+                Sửa
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="closeModal()"
+              >
+                Thoát
+              </button>
+            </div>
+          </ng-template>
+          <!--  -->
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            (click)="onDelete(item.id)"
+          >
+            Xoá
+          </button>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+</div>

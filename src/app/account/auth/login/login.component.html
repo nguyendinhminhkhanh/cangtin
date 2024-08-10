@@ -1,0 +1,61 @@
+<div class="container">
+  <div style="width: 350px; height: 450px">
+    <div>
+      <h1 style="display: flex; align-items: center; justify-content: center; font-weight: bold;">
+        Đăng nhập
+      </h1>
+      <p *ngIf="checkLogin" style=" display: flex; justify-content: center; align-items: center;color: red; font-weight: bold;"><i class="bi bi-x-circle" style="font-weight: bold;"></i> Thông tin đăng nhập không chính xác</p>
+      <!-- Form -->
+      <form [formGroup]="rfContact">
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <input
+            type="text"
+            placeholder="Email"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="email"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="password"
+          />
+        </div>
+      </form>
+      <!--  -->
+      <div
+        style="
+          display: flex;
+
+          justify-content: space-around;
+          padding-top: 20px;
+        "
+      >
+        <button
+          type="submit"
+          (click)="onLogin()"
+          class="btn"
+          style="background-color: #26b99a;color: white;"
+        >
+          Đăng nhập
+        </button>
+        <div style="display: grid; color: black">
+          <a style="cursor: default">Quên mật khẩu?</a>
+          <a style="cursor: default" (click)="onRegister()" >Đăng kí</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

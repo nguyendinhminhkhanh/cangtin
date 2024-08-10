@@ -1,0 +1,167 @@
+<h1>commmain: chưa có chức năng dôi mật khâu </h1>
+<h2>thiết lập chức nhanh xem thông báo </h2>
+<header class="header">
+  <div class="right">
+    <div routerLink="home">
+      <img style="width: 200px; height: 50px" />
+    </div>
+    <div><i class="bx bx-menu"></i></div>
+  </div>
+  <div class="left">
+    <div style="padding: 10px">
+      <button
+        type="button"
+        class="btn position-relative btn-outline"
+        triggers="click"
+        [autoClose]="'outside'"
+        ngbTooltip=""
+      >
+        <i
+          class="bx bxs-bell-ring bx-rotate-90 bx-tada"
+          style="color: #ffff00"
+        ></i>
+        <span
+          class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
+        ></span>
+      </button>
+    </div>
+    <div class="btn-group">
+      <button
+        style="cursor: pointer; color: white"
+        type="button"
+        class="btn dropdown-toggle"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        (click)="openModalInfor(content)"
+      >
+        <i class="bx bx-user"></i>{{ isLogin }}
+      </button>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="sideBar">
+    <div routerLink="home" class="select">Trang chủ</div>
+    <div routerLink="system" class="select">Hệ thống</div>
+    <div class="select">Quản lý sản phẩm</div>
+    <div class="select">Quản lý đơn hàng</div>
+    <div class="select">Quản lý tin tức</div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
+<ng-template #content>
+  <div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{ isLogin }}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="closeModalInfor()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td>Thông tin tài khoản</td>
+            </tr>
+            <tr>
+              <td (click)="openChangePassword(modalChangePassword)">
+                Đổi mật khẩu
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="logOut()">
+          Đăng xuất
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #modalChangePassword let-offcanvas>
+  <div class="offcanvas-header">
+    <h4 class="offcanvas-title" id="offcanvas-basic-title">
+      Thay đổi mật khẩu
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="closeModalChangePass()"
+    ></button>
+  </div>
+  <div>
+
+
+    <div>
+      <!-- Form change password -->
+      <form [formGroup]="rfContact">
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="text"
+            placeholder="Email"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="email"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="password"
+            placeholder="Mật khẩu hiện tại"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="currentPassword"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="password"
+            placeholder="Mật khẩu mới"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="newPassword"
+          />
+        </div>
+        <div class="text-end" style="margin-right: 20px; margin-top: 10px;">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="onChangePass()"
+          >
+            Đổi mật khẩu
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<!-- Chưa làm phần form thay fdoi mật khauaur \ -->
+<!-- corver lại phần form thay doi mat khau -->

@@ -1,0 +1,107 @@
+<div class="container">
+  <div style="width: 350px; height: 450px">
+    <div>
+      <h1
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+        "
+      >
+        Đăng ký
+      </h1>
+      <!-- Form -->
+      <form [formGroup]="rfContact">
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <input
+            type="text"
+            placeholder="Tên"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="name"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="text"
+            placeholder="Email"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="email"
+          />
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="password"
+          />
+        </div>
+      <!-- <p *ngIf="checkPass"  style="display: flex; justify-content: center; align-items: center;color: red; font-weight: bold; margin: 0;"><i class="bi bi-x-circle" style="font-weight: bold;"></i>Hãy nhập chính xác lại mật khẩu</p>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;
+          "
+        >
+          <input
+            type="password"
+            placeholder="Nhập lại mật khẩu"
+            style="width: 90%; padding: 10px; border-radius: 5px"
+            formControlName="retypePassword"
+          />
+        </div> -->
+      </form>
+      <!--  -->
+      <p *ngIf="checkFullInfo" style=" display: flex; justify-content: center; align-items: center;color: red; font-weight: bold; margin: 0;"><i class="bi bi-x-circle" style="font-weight: bold;"></i>Hãy nhập đầy đủ thông tin</p>
+
+      <div
+        style="
+          display: flex;
+
+          justify-content: space-around;
+          padding-top: 20px;
+        "
+      >
+        <button
+          type="submit"
+          (click)="onRegister()"
+          class="btn"
+          style="background-color: #26b99a; color: white;"
+        >
+          Đăng kí
+        </button>
+        <button
+          type="submit"
+          (click)="onLogin()"
+          class="btn btn-success"
+          style="background-color: #26b99a"
+        >
+          Đăng nhập
+        </button>
+        <div style="display: grid; color: black">
+          <a style="cursor: default">Quên mật khẩu?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
