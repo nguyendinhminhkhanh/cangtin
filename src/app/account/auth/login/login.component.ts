@@ -13,6 +13,7 @@ export class LoginComponent {
   rfContact: any;
   checkLogin: any;
   data: any;
+
   constructor(private fb: FormBuilder, private route: Router, private httpClient: HttpClient,private service:ApiService){}
   ngOnInit(){
     this.rfContact = this.fb.group({
@@ -32,9 +33,9 @@ export class LoginComponent {
     }else{
         this.service.postLogin(this.data).subscribe((res)=>{
         if(res.status == "success"){
+          localStorage.setItem('token',res.data.access_token);
           localStorage.setItem('isLogin','true');
           localStorage.setItem('name',this.data.email);
-          localStorage.setItem('token',res.data.access_token);
           this.route.navigate(['../', 'layout', 'home']);
           console.log("Đăng nhập thành công!!!")
         }else{

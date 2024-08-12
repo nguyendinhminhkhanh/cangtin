@@ -19,6 +19,9 @@ export class HomeComponent {
   dataCategory: any;
   checkInfoUpdate = false;
   checkInfoCategory = false;
+
+  // fileToUpload: File | null = null;
+
   constructor(
     private fb: FormBuilder,
     private route: Router,
@@ -38,10 +41,21 @@ export class HomeComponent {
     });
     this.checkInfoCategory = false;
 
-    this.service.getData().subscribe((res) => {
+    this.service.getListCategory().subscribe((res) => {
       this.data = res.data;
       console.log(this.data);
     });
+  }
+
+
+  handleFileInput(event: any) {
+    event = event.target.files[0]; 
+    const formdata = new FormData();
+    formdata.set("files",event);
+    this.service.postImageCategory(formdata).subscribe((res)=>{
+      this.rfContact.value.thumbnail = "http://localhost:8080" + res.data;
+      console.log(this.rfContact.value.thumbnail);
+    })
   }
 
   onAdd() {
@@ -54,11 +68,11 @@ export class HomeComponent {
         thumbnail: this.rfContact.value.thumbnail,
       };
       console.log(this.dataCategory);
-      this.service.postData(this.dataCategory).subscribe((res) => {
+      this.service.postCategory(this.dataCategory).subscribe((res) => {
         console.log(res);
       });
       // window.location.reload();
-      this.service.getData().subscribe((res) => {
+      this.service.getListCategory().subscribe((res) => {
         this.data = res.data;
         // console.log(this.data);
       });
@@ -68,18 +82,12 @@ export class HomeComponent {
   }
 
   onDelete(id: any) {
-    this.service.delData(id).subscribe((res) => {
+    this.service.delCategory(id).subscribe((res) => {
       console.log(res);
-      this.service.getData().subscribe((res) => {
+      this.service.getListCategory().subscribe((res) => {
         this.data = res.data;
         // console.log(this.data);
       });
-    });
-  }
-
-  onUpdate(id: any) {
-    this.service.updateData(id).subscribe((res) => {
-      console.log(res);
     });
   }
 
@@ -88,14 +96,60 @@ export class HomeComponent {
     modalRef.shown?.subscribe(() => {});
   }
   closeModal() {
+    this.checkInfoCategory = false;
     this.rfContact.reset();
     this.rfContactUpdate.reset();
     this.modalService.dismissAll();
   }
 
-  openModalEdit(modalEdit:any){
+  openModalEdit(modalEdit:any,id:any){
+    console.log(id);
+    localStorage.setItem("idCategory",id);
+    let currenData;
+    this.service.getCategory(id).subscribe((res)=>{
+      currenData = res.data;
+      console.log(currenData);
+      this.rfContactUpdate.setValue({
+        name: currenData.name,
+        thumbnail:"",
+      })
+    })
     const modalRef: NgbModalRef = this.modalService.open(modalEdit);
     modalRef.shown?.subscribe(()=>{})
   }
+
+  handleFileInputUpdate(event:any){
+    event = event.target.files[0];
+    const formdata = new FormData();
+    formdata.set("files",event);
+    this.service.postImageCategory(formdata).subscribe((res)=>{
+      this.rfContactUpdate.value.thumbnail = "http://localhost:8080" + res.data;
+      console.log(this.rfContactUpdate.value.thumbnail);
+    })
+  }
+
+  onUpdate() {
+    console.log("update");
+    let idCategory = localStorage.getItem("idCategory");
+    let newUpdateCategory = {
+      id: idCategory,
+      name: this.rfContactUpdate.value.name,
+      thumbnail: this.rfContactUpdate.value.thumbnail,
+    }
+    console.log(newUpdateCategory);
+    this.service.updateCategory(newUpdateCategory).subscribe((res) => {
+      console.log("ham uop ad");
+      console.log(res.data);
+      // this.service.getListCategory().subscribe((res)=>{
+      //   console.log("thanh cong ")
+      //   console.log(res.data);
+      //   //sua thanh cong
+
+      // });
+    });
+    this.modalService.dismissAll();
+  }
+
+
 
 }

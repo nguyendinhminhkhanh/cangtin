@@ -1,9 +1,8 @@
-<h1>commmain: chưa có chức năng dôi mật khâu </h1>
-<h2>thiết lập chức nhanh xem thông báo </h2>
+<h1>chưa có chức năng dôi mật khâu </h1>
 <header class="header">
   <div class="right">
     <div routerLink="home">
-      <img style="width: 200px; height: 50px" />
+      <img src="../../assets/inage/cooking.jpg" style="width: 200px; height: 100px" />
     </div>
     <div><i class="bx bx-menu"></i></div>
   </div>
@@ -12,9 +11,7 @@
       <button
         type="button"
         class="btn position-relative btn-outline"
-        triggers="click"
-        [autoClose]="'outside'"
-        ngbTooltip=""
+        (click)="openNotify(notify)"
       >
         <i
           class="bx bxs-bell-ring bx-rotate-90 bx-tada"
@@ -24,6 +21,15 @@
           class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
         ></span>
       </button>
+      <ng-template #notify let-offcanvas>
+        <div class="offcanvas-header">
+          <h4 class="offcanvas-title">Thông báo <i class='bx bxs-bell-ring bx-tada' ></i></h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+        </div>
+        <div class="offcanvas-body ">
+          <p>Không có thông báo mới</p>
+        </div>
+      </ng-template>
     </div>
     <div class="btn-group">
       <button

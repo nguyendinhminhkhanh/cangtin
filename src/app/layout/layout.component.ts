@@ -65,4 +65,8 @@ export class LayoutComponent {
     // console.log("Changr success")
     this.closeModalChangePass();
   }
+
+  openNotify(content: any) {
+		this.offcanvasService.open(content, { position: 'end' });
+	}
 }

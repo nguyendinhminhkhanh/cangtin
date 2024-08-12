@@ -9,7 +9,6 @@ export class ApiService {
   token = localStorage.getItem('token');
   constructor(private httpClient: HttpClient) { }
 
-
   postRegister(infoRegister:any): Observable<any>{
     return this.httpClient.post("http://localhost:8080/api/v1/admin/auth/register",infoRegister);
   }
@@ -18,7 +17,7 @@ export class ApiService {
     return this.httpClient.post("http://localhost:8080/api/v1/admin/auth/login",infoLogin);
   }
 
-  getData(): Observable<any> {
+  getListCategory(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`,
@@ -28,23 +27,37 @@ export class ApiService {
       {
         headers: headers,
       }
-    );
+    ); 
   }
 
-  updateData(id:any): Observable<any> {
+  getCategory(id:any):Observable<any>{
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`,
     });
-    return this.httpClient.post(
-      'http://localhost:8080/api/v1/admin/category/update',
+    return this.httpClient.get<any>(
+      'http://localhost:8080/api/v1/admin/category/detail?id='+id,
       {
         headers: headers,
       }
     );
   }
 
-  delData(id: any): Observable<any> {
+
+  updateCategory(data:any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.token}`,
+    });
+    return this.httpClient.post(
+      'http://localhost:8080/api/v1/admin/category/update',data,
+      {
+        headers: headers,
+      }
+    );
+  }
+
+  delCategory(id: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`,
@@ -55,7 +68,7 @@ export class ApiService {
     );
   }
 
-  postData(data: any): Observable<any> {
+  postCategory(data: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`,
@@ -67,5 +80,11 @@ export class ApiService {
         headers: headers,
       }
     );
+  }
+
+  postImageCategory(fileUpload:any): Observable<any>{
+    const endpoint = 'http://localhost:8080/api/v1/common/upload';
+    return this.httpClient
+      .post(endpoint, fileUpload)
   }
 }
